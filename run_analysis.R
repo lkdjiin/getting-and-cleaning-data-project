@@ -53,7 +53,6 @@ rm('x_train')
 
 # Rename columns in x by features.
 features <- read.table('UCI HAR Dataset/features.txt')
-# names(x) <- features$V2
 names(x) <- paste0(names(x), '_', features$V2)
 rm('features')
 
