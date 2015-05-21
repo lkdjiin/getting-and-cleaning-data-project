@@ -86,7 +86,7 @@ names(merged_set) <- sub('^V.{1,3}_', '', names(merged_set))
 final_data <- merged_set %>%
               group_by(subject, activity) %>%
               summarise_each(funs(mean))
-
+rm('merged_set')
 names(final_data)[3:81] <- paste0('mean(', names(final_data)[3:81], ')')
 
 write.table(final_data, file='tidy.txt', row.name=FALSE)
