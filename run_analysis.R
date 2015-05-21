@@ -66,8 +66,15 @@ rm('x')
 ## Step 2.
 ## Extracts only the measurements on the mean and standard deviation for
 ## each measurement. 
+
 merged_set <- tbl_df(merged_set)
 merged_set <- select(merged_set,
                      matches('subject|activity|mean|std', ignore.case=FALSE))
 
 ## Step 3. Already done in step 1.
+
+## Step 4.
+
+# I think that variable names taken from the features.txt are already
+# meaningful enough. So I'm just going to remove the leading 'Vxxx_'.
+names(merged_set) <- sub('^V.{1,3}_', '', names(merged_set))
