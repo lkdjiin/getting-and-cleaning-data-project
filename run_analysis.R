@@ -65,7 +65,7 @@ rm('x')
 
 ## Step 2.
 ## Extracts only the measurements on the mean and standard deviation for
-## each measurement. 
+## each measurement.
 
 merged_set <- tbl_df(merged_set)
 merged_set <- select(merged_set,
@@ -78,3 +78,16 @@ merged_set <- select(merged_set,
 # I think that variable names taken from the features.txt are already
 # meaningful enough. So I'm just going to remove the leading 'Vxxx_'.
 names(merged_set) <- sub('^V.{1,3}_', '', names(merged_set))
+
+
+## Step 5.
+## From the data set in step 4, creates a second, independent tidy data set
+## with the average of each variable for each activity and each subject.
+
+final_data <- merged_set %>%
+              group_by(subject, activity) %>%
+              summarise_each(funs(mean))
+
+names(final_data)[3:81] <- paste0('mean(', names(final_data)[3:81], ')')
+
+write.table(final_data, file='tidy.txt', row.name=FALSE)
