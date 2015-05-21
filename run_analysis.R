@@ -1,7 +1,7 @@
 library(plyr)
 library(dplyr)
 
-## Assignment 0.
+## Step 0.
 ## Download and unzip raw data if needed.
 if(!file.exists('UCI HAR Dataset/')) {
   url <- 'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip'
@@ -16,7 +16,7 @@ if(!file.exists('UCI HAR Dataset/')) {
   unzip('dataset.zip', './')
 }
 
-## Assignment 1.
+## Step 1.
 ## Merge the training and the test sets to create one data set.
 
 print('Merging data, this could take some time…')
@@ -28,6 +28,8 @@ activities <- rbind(y_test, y_train)
 rm('y_test')
 rm('y_train')
 activity_labels <- read.table('UCI HAR Dataset/activity_labels.txt')
+# This is not strictly needed before step 3, but I think it's easier to
+# rename all the activities values right now.
 activities <- join(activities, activity_labels)
 activities <- tbl_df(activities)
 activities <- select(activities, activity=V2)
@@ -61,10 +63,11 @@ rm('subject')
 rm('activities')
 rm('x')
 
-## Assignment 2.
+## Step 2.
 ## Extracts only the measurements on the mean and standard deviation for
 ## each measurement. 
 merged_set <- tbl_df(merged_set)
 merged_set <- select(merged_set,
                      matches('subject|activity|mean|std', ignore.case=FALSE))
 
+## Step 3. Already done in step 1.
