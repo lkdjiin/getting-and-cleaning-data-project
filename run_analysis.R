@@ -51,7 +51,9 @@ x       <- rbind(x_test, x_train)
 rm('x_test')
 rm('x_train')
 
-# Rename columns in x by features.
+# Rename columns in x by features. I'll prepend 'V1', 'V2', 'V3', etc,
+# because there is some duplicates that can cause some problems in latter
+# steps.
 features <- read.table('UCI HAR Dataset/features.txt')
 names(x) <- paste0(names(x), '_', features$V2)
 rm('features')
